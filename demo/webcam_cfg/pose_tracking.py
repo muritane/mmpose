@@ -24,22 +24,28 @@ executor_cfg = dict(
             name='pose tracker',
             det_model_config='demo/mmdetection_cfg/'
             'ssdlite_mobilenetv2_scratch_600e_coco.py',
-            det_model_checkpoint='https://download.openmmlab.com'
-            '/mmdetection/v2.0/ssd/'
-            'ssdlite_mobilenetv2_scratch_600e_coco/ssdlite_mobilenetv2_'
-            'scratch_600e_coco_20210629_110627-974d9307.pth',
+            det_model_checkpoint='/home/tamer/MMLab_libraries/checkpoints/'
+            'ssdlite_mobilenetv2_scratch_600e_coco_20210629_110627-974d9307.pth',
             pose_model_config='configs/wholebody/2d_kpt_sview_rgb_img/'
             'topdown_heatmap/coco-wholebody/'
             'vipnas_mbv3_coco_wholebody_256x192_dark.py',
-            pose_model_checkpoint='https://download.openmmlab.com/mmpose/'
-            'top_down/vipnas/vipnas_mbv3_coco_wholebody_256x192_dark'
-            '-e2158108_20211205.pth',
+            pose_model_checkpoint='/home/tamer/MMLab_libraries/checkpoints/'
+            'vipnas_mbv3_coco_wholebody_256x192_dark-e2158108_20211205.pth',
             det_interval=10,
             labels=['person'],
+            #labels=['suitcase'],
             smooth=True,
             device='cuda:0',
             input_buffer='_input_',  # `_input_` is an executor-reserved buffer
             output_buffer='human_pose'),
+        # 'ModelInferenceROSNode':
+        # This node publishes model inference of PoseTrackerNode as std_msgs/String msg
+        dict(
+            type='ModelInferenceROSNode',
+            name='model_inference_ros_node',
+            frame_buffer='_frame_',  # `_frame_` is an executor-reserved buffer
+            object_buffer='human_pose',
+            topic='/model_inference'),
         # 'ObjectAssignerNode':
         # This node binds the latest model inference result with the current
         # frame. (This means the frame image and inference result may be
