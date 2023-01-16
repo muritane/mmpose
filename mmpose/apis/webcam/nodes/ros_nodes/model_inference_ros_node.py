@@ -50,6 +50,8 @@ class ModelInferenceROSNode(Node):
             print("ROS is shutdown -> exit")
             self._event_manager.set('_exit_')
 
+        
+
         object_msg = input_msgs['object']
         objects = [] if object_msg is None else object_msg.get_objects()
 
@@ -57,6 +59,10 @@ class ModelInferenceROSNode(Node):
         rospy.loginfo("labels: {}".format(labels))
         if "person" in labels:
             rospy.loginfo([d for d in objects if d['label'] == 'person'])
+#            input_keys = [] if input_msgs is None else input_msgs.keys()
+#            rospy.loginfo(input_keys)
+#            if 'frame' in input_keys:
+#                rospy.loginfo(input_msgs['frame'].get_image())
             self._event_manager.set('_exit_')
 
         # self.model_inference_pub.publish(str(objects))

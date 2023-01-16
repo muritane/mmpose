@@ -4,6 +4,7 @@ executor_cfg = dict(
     name='Pose Estimation',
     camera_id=0,
     synchronous=False,
+#    synchronous=True,
     # Define nodes.
     # The configuration of a node usually includes:
     #   1. 'type': Node class name
@@ -63,6 +64,7 @@ executor_cfg = dict(
             name='object visualizer',
             enable_key='v',
             input_buffer='frame',
+            must_have_keypoint=True,
             output_buffer='vis'),
         # 'NoticeBoardNode':
         # This node show a notice board with given content, e.g. help
