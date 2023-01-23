@@ -45,7 +45,10 @@ executor_cfg = dict(
             name='model_inference_ros_node',
             frame_buffer='_frame_',  # `_frame_` is an executor-reserved buffer
             object_buffer='human_pose',
-            topic='/model_inference'),
+            topic='/model_inference',
+            bbox_info=["x1", "y1", "x2", "y2", "score"],
+            keypoint_info = ["x", "y", "score"],
+            kp_labels_of_interest=["elbow", "wrist", "shoulder", "hip", "knee", "ankle"]),
         # 'ObjectAssignerNode':
         # This node binds the latest model inference result with the current
         # frame. (This means the frame image and inference result may be
